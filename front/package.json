@@ -1,0 +1,32 @@
+{
+  "name": "user_app",
+  "version": "1.0.0",
+  "description": "myapp",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "César Garcia",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@types/node-fetch": "^1.6.7",
+    "@types/prop-types": "^15.5.1",
+    "@types/react": "^15.0.29",
+    "@types/react-dom": "15.5.0",
+    "gulp": "^3.9.1",
+    "node-fetch": "^1.7.1",
+    "office-ui-fabric-react": "^4.51.1",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-http-request": "^1.0.3"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "gulp-serve": "^1.4.0",
+    "office-ui-fabric-core": "^7.1.2",
+    "office-ui-fabric-react": "^4.21.4",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.2",
+    "webpack": "^2.7.0"
+  }
+}

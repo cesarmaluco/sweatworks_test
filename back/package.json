@@ -1,0 +1,41 @@
+{
+  "name": "apl-servicos-canal",
+  "version": "0.0.0",
+  "description": "Servicos",
+  "main": "src/servicosCanal.js",
+  "scripts": {
+    "test": "gulp test",
+    "start" : "node src/servicosCanal.js"
+  },
+  "author": "Cesar",
+  "license": "UNLICENSE",
+ 
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.9.0",
+    "fs-extra": "^0.30.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-eslint": "^2.0.0",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-mocha": "^2.2.0",
+    "istanbul": "^1.0.0-alpha",
+    "mocha": "^2.4.5",
+    "mocha-jenkins-reporter": "^0.2.2",
+    "mocha-multi": "^0.9.0",
+    "sinon": "^1.17.3",
+    "typings": "^0.8.1"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.1",
+    "country-list": "0.0.3",
+    "crypto": "0.0.3",
+    "http-status-codes": "^1.0.6",
+    "ioredis": "^2.2.0",
+    "jsonwebtoken": "^7.0.1",
+    "language-list": "0.0.3",
+    "mongoose": "^4.5.0",
+    "node-uuid": "^1.4.7",
+    "restify": "^4.0.4"
+  }
+}

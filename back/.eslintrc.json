@@ -1,0 +1,118 @@
+{
+    "env": {
+        "node": true,
+        "mocha": true,
+        "commonjs": true,
+        "es6": true
+        
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        // Strict
+        "strict": [
+            "error",
+            "safe"
+        ],
+        // General rules
+        "no-console": [
+            "off"
+        ], // set to one!!! 
+        "no-use-before-define": [
+            "error"
+        ],
+        "no-magic-numbers": [
+            "off"  
+        ],
+        "no-loop-func": [
+            "error"
+        ],
+        
+        "dot-location": [
+            "error",
+            "property"
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
+        "consistent-return": [
+            "error"
+        ],
+        "default-case": [
+            "error"
+        ],
+        "indent": [
+            "off",
+            "tab"
+        ],
+        "linebreak-style": [
+            "off",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        // Style
+        "array-bracket-spacing": [
+            "error",
+            "never"
+        ],
+        "block-spacing": [
+            "error",
+            "always"
+        ],
+        "consistent-this": [
+            "error",
+            "self"
+        ],
+        "new-cap": [
+            "error"
+        ],
+        "new-parens": [
+            "error"
+        ],
+        "no-lonely-if": [
+            "error"
+        ],
+        "no-unneeded-ternary": [
+            "error"
+        ],
+        "no-whitespace-before-property": [
+            "error"
+        ],
+        "require-jsdoc": [
+            "warn",
+            {
+                "require": {
+                    "FunctionDeclaration": true,
+                    "MethodDefinition": true,
+                    "ClassDeclaration": true
+                }
+            }
+        ],
+        "space-in-parens": [
+            "error",
+            "never"
+        ],
+        "space-infix-ops": [
+            "error"
+        ],
+        "space-unary-ops": [
+            "error",
+            {
+                "words": true,
+                "nonwords": false
+            }
+        ]
+        // ES6 Options
+    }
+}

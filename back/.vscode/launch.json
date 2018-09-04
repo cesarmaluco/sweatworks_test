@@ -1,0 +1,65 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		// LAUNCH //////////////////////////////////////////////////////////////
+		{
+			"name": "Launch",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceRoot}/src/servicosCanal.js",
+			"stopOnEntry": false,
+			"args": [],
+			"cwd": "${workspaceRoot}",
+			"preLaunchTask": null,
+			"runtimeExecutable": null,
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"env": {
+				"NODE_ENV": "development"
+			},
+			"externalConsole": false,
+			"sourceMaps": false,
+			"outDir": null
+		},
+		// ATTACH //////////////////////////////////////////////////////////////
+		{
+			"name": "Attach",
+			"type": "node",
+			"request": "attach",
+			"port": 5858,
+			"address": "localhost",
+			"restart": false,
+			"sourceMaps": false,
+			"outDir": null,
+			"localRoot": "${workspaceRoot}",
+			"remoteRoot": null
+		},
+		// MOCHA ///////////////////////////////////////////////////////////////
+		{
+			"name": "Mocha",
+			"type": "node",
+			"request": "launch",
+			// O runtime ignora a informação abaixo, porém, deixamos-la como padrão.
+			"program": "${workspaceRoot}/node_modules/mocha/bin/mocha",
+			// O .cmd utiliza a informação de porta transmitida; Ao comentá-la o VSCode define dinamicamente.
+			//"port": 9001, 
+			"stopOnEntry": false,
+			// Configurações estão no arquivo cmd.
+			"args": [], 
+			"cwd": "${workspaceRoot}",
+			"preLaunchTask": null,
+			// Delega a execução para o cmd
+			"runtimeExecutable": "${workspaceRoot}/debug-mocha.cmd", 
+			// Configurações estão no arquivo cmd.
+			"runtimeArgs": [], 
+			// Configurações estão no arquivo cmd.
+			"env": {
+				"NODE_ENV": "development"
+			},
+			"externalConsole": false,
+			"sourceMaps": false,
+			"outDir": null
+		}
+	]
+}

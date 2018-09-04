@@ -1,0 +1,17 @@
+{
+  "ambientDependencies": {
+    "assertion-error": "registry:dt/assertion-error#1.0.0+20160316155526",
+    "bunyan": "registry:dt/bunyan#0.0.0+20160412155112",
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "chokidar": "registry:dt/chokidar#1.4.3+20160316155526",
+    "http-status-codes": "registry:dt/http-status-codes#1.0.5+20160122033621",
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "node": "registry:dt/node#4.0.0+20160501135006",
+    "restify": "registry:dt/restify#2.0.0+20160425141054",
+    "sinon": "registry:dt/sinon#1.16.0+20160317120654",
+    "validator": "registry:dt/validator#4.5.1+20160316155526"
+  },
+  "dependencies": {},
+  "ambientDevDependencies": {}
+}
