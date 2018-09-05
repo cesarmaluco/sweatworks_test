@@ -27,11 +27,10 @@ export  class SignUp extends React.Component<any, IUser> {
 
     private signUp()
     {
-        fetch('http://localhost:1340/api/criarMensagem',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"mensagem":{' + 
-	                                                                            '"name": "' + this.refs["name"].value + '",' + 
-                                                                            '"email" : "' + this.refs["email"].value + '",' +
-                                                                            '"roles": [{"type":"' + this._role + '"}],' + 
-                                                                            '"pwd": "' + this.refs["pwd"].value + '"}}'}).then(res => res.json()).then(data => {
+        fetch('http://localhost:1340/api/author/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"Author":{' + 
+	                                                                            '"Name": "' + (this.refs.name as any).value + '",' + 
+                                                                            '"User" : "' + (this.refs["email"] as any).value + '",' +
+                                                                            '"Pwd": "' + (this.refs["pwd"] as any).value + '"}}'}).then(res => res.json()).then(data => {
                                                                                   let _data = data; 
                                                                                   let _user : IUser = {nome:_data.name,email:_data.email,roles:_data.roles};
                                                                                   this._form.setState({status:"Ready",user:_user}); 
@@ -48,7 +47,7 @@ export  class SignUp extends React.Component<any, IUser> {
             <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
                   
-                      <TextField label='Name' ref='name' />
+                      <TextField label='Name' ref='name'  />
                 </div>
             </div>
             <div className="ms-Grid-row">

@@ -25,7 +25,7 @@ export  class ItemForm extends React.Component<any, IItem> {
     private newItem()
     {
         fetch('http://localhost:1340/api/criarItem',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"Item":{' + 
-	                                                                            '"name": "' + this.refs["name"].value + '"}}'}).then(res => res.json()).then(data => {
+	                                                                            '"name": "' + this.refs["name"] + '"}}'}).then(res => res.json()).then(data => {
                                                                                   let _data = data; 
                                                                                   let _item : IItem = {name:_data.name};
                                                                                   this._form.setState({status:"Ready",user:_item}); 

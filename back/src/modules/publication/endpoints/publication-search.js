@@ -1,30 +1,20 @@
 //IMPORTS************************************
-let Mensagem = require("../mensagem");
+let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
-var TratamentoMensagem = require("../model/mensagem");
 
-/** Consultar  mensagens no banco de dados  */
-function consultarMensagem(req, res, next,proxyMensagem) {
-	var msg = null;
-	if (!proxyMensagem)
-	{
-		msg = new Mensagem(TratamentoMensagem);
-	}
-	else
-	{
-		msg = proxyMensagem;
-	} 	 
-	var filtros = req.body.filtros;
-	msg.consultarMensagem(filtros.email)
-		.then((msgs) => {
-			return res.json(msgs);
-		}).catch((err) => {
-			return res.send("Erro ao consultar mensagem" + err);
-		});
+
+function searchPublication(req, res, next,proxyMensagem) {
+	let pub = new Publication();
+	var reqMensagem = req.body.filters;
+	pub.searchPublication(reqMensagem).then((msgCreated) => {
+		return res.json(msgCreated);
+	}).catch((err) => {
+		return res.send("Publication search failed" + err);
+	});
 	return next();
 }
-
+	
 module.exports = new EndpointDescription(
 	"post",
-	"/api/consultarMensagem",
-	consultarMensagem);
+	"/api/publication/search",
+	searchPublication);

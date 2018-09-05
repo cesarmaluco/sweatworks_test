@@ -1,30 +1,20 @@
 //IMPORTS************************************
-let Mensagem = require("../mensagem");
+let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
-var TratamentoMensagem = require("../model/mensagem");
 
-/** Atualização de mensagem   */
-function atualizarMensagem(req, res, next,proxyMensagem) {
-	var msg = null;
-	if (!proxyMensagem)
-	{
-		msg = new Mensagem(TratamentoMensagem);
-	}
-	else
-	{
-		msg = proxyMensagem;
-	} 	 
-	
-	var reqMensagem = req.body.mensagem;
-	msg.atualizarMensagem(reqMensagem).then((msgUpdated) => {
-		return res.json(msgUpdated);
+
+function updatePublication(req, res, next,proxyMensagem) {
+	let pub = new Publication();
+	var reqMensagem = req.body.Publication;
+	pub.updatePublication(reqMensagem).then((msgCreated) => {
+		return res.json(msgCreated);
 	}).catch((err) => {
-		return res.send("Erro ao atualizar mensagem" + err);
+		return res.send("Publication updated failed" + err);
 	});
 	return next();
 }
 	
 module.exports = new EndpointDescription(
-	"put",
-	"/api/atualizarMensagem",
-	atualizarMensagem);
+	"post",
+	"/api/publication/update",
+	updatePublication);

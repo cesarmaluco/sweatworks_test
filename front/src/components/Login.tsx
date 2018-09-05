@@ -16,9 +16,9 @@ export class Login extends React.Component<any, IUser> {
         fetch('http://localhost:1340/api/login', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"filtros":{' +
 
-                '"email" : "' + this.refs["email"].value + '",' +
+                '"email" : "' + this.refs["email"] + '",' +
 
-                '"senha": "' + this.refs["pwd"].value + '"}}'
+                '"senha": "' + this.refs["pwd"] + '"}}'
         }).then(res => res.json()).then(data => {
             let _data = data;
             let _user: IUser = { nome: _data.name, email: _data.email, roles: _data.roles };

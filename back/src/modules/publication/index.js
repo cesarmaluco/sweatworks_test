@@ -1,11 +1,11 @@
 // IMPORTS /////////////////////////////////////////////////////////////////////
-let criarMensagem = require("./endpoints/mensagem-criar");
-let consultarMensagem = require("./endpoints/mensagem-consultar");
-let atualizarMensagem = require("./endpoints/mensagem-atualizar");
-let excluirMensagem = require("./endpoints/mensagem-excluir");
-let login = require("./endpoints/mensagem-login");
-let mensagemModel = require("./model/mensagem");
-let BusMensagem = require("./mensagem");
+let createPublication = require("./endpoints/Publication-create");
+let searchPublication = require("./endpoints/Publication-search");
+let updatePublication = require("./endpoints/Publication-update");
+let deletePublication = require("./endpoints/Publication-delete");
+
+
+let BusPub = require("./Publication");
 
 // DERIVED IMPORTS /////////////////////////////////////////////////////////////
 
@@ -13,11 +13,9 @@ let BusMensagem = require("./mensagem");
 
 // EXPORTS /////////////////////////////////////////////////////////////////////
 module.exports = {
-	criarMensagem: criarMensagem,
-	consultarMensagem: consultarMensagem,
-	atualizarMensagem: atualizarMensagem,
-	excluirMensagem: excluirMensagem,
-	login: login,
-	mensagemModel : mensagemModel,
-	BusMensagem : BusMensagem
+	createPublication: createPublication,
+	searchPublication: searchPublication,
+	updatePublication: updatePublication,
+	deletePublication: deletePublication,
+	BusPublication : BusPub
 };

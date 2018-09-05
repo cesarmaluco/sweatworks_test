@@ -1,15 +1,14 @@
 {
-  "name": "apl-servicos-canal",
+  "name": "services-sweatworks",
   "version": "0.0.0",
-  "description": "Servicos",
-  "main": "src/servicosCanal.js",
+  "description": "Services",
+  "main": "src/services.js",
   "scripts": {
     "test": "gulp test",
-    "start" : "node src/servicosCanal.js"
+    "start": "node src/services.js"
   },
   "author": "Cesar",
   "license": "UNLICENSE",
- 
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^2.9.0",
@@ -36,6 +35,7 @@
     "language-list": "0.0.3",
     "mongoose": "^4.5.0",
     "node-uuid": "^1.4.7",
-    "restify": "^4.0.4"
+    "restify": "^4.0.4",
+    "sqlite3": "^4.0.2"
   }
 }

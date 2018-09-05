@@ -1,23 +1,16 @@
 //IMPORTS************************************
-let Mensagem = require("../mensagem");
+let Author = require("../Author");
 let EndpointDescription = require("../../server/endpoint-description");
-var TratamentoMensagem = require("../model/mensagem");
+
 var getHash = require('../../../util/getHash');
 var jwt = require('jsonwebtoken');
 
 /** Consultar  mensagens no banco de dados  */
 function login(req, res, next,proxyMensagem) {
-	var msg = null;
-	if (!proxyMensagem)
-	{
-		msg = new Mensagem(TratamentoMensagem);
-	}
-	else
-	{
-		msg = proxyMensagem;
-	} 	 
+	
 	var filtros = req.body.filtros;
-	var login = msg.consultarMensagem(filtros.email)
+	let author = new Author();
+	var login = author.searchAuthor(filtros.user)
 		.then((user) => {
 			user = user[0];
 			filtros.senha = getHash(filtros.senha, filtros.senha);
@@ -28,7 +21,7 @@ function login(req, res, next,proxyMensagem) {
                 user.last_login = new Date();
                 user.save(function (err, userCreated) {
                     if (err) {
-                        return res.send("Erro ao atualizar login");
+                        return res.send("Login failed");
                     }
                     return res.json(userCreated);
                 });
