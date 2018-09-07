@@ -14,8 +14,9 @@ export class Publications extends React.Component<any, any> {
     private _selection: Selection;
     private _showForm: boolean;
     private _user: IUser;
+    private _currentPub : any;
 
-    constructor(props: any) {
+    constructor(props: any, state: any) {
         super(props);
         this._user = props;
         this.getPublications(this._user.id);
@@ -35,11 +36,20 @@ export class Publications extends React.Component<any, any> {
 
     }
 
-    
-
     public newItem() {
         this._showForm = true;
         this.forceUpdate();
+    }
+
+    public updateItem(item: any){
+        this._showForm = true;
+        this._currentPub  = item;
+        this.setState({ publication: this._currentPub});
+        this.forceUpdate();
+    }
+
+    public deleteItem(item: any){
+        this._currentPub  = item;
     }
 
     public closeItem() {
@@ -68,15 +78,16 @@ export class Publications extends React.Component<any, any> {
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
                             <DefaultButton
                                 data-automation-id='test'
-                                description='Create new item'
+                                onClick={() => this.deleteItem(item)}
+                                description='Delete publication'
                                 text='Delete'
                             />
                         </span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
                             <DefaultButton
                                 data-automation-id='test'
-                                onClick={() => this.newItem()}
-                                description='Create new item'
+                                onClick={() => this.updateItem(item)}
+                                description='Update publications'
                                 text='Update'
                             />
                         </span>
@@ -108,7 +119,7 @@ export class Publications extends React.Component<any, any> {
                     onDismiss={() => { this._showForm = false }}
                     headerText='New Item'
                 >
-                    <ItemForm context={this} />
+                    <ItemForm context={this} props={this} />
                 </Panel>
                 <div className="ms-Grid">
                     <div className="ms-Grid-row">

@@ -66,7 +66,7 @@ export  class ItemForm extends React.Component<any, IItem> {
     private _user : IUser;
     private _body : any;
     private _date: any;
-    
+    private _pubData: any;
 
     constructor(props: any, state: IItem) {
         super(props);
@@ -76,14 +76,38 @@ export  class ItemForm extends React.Component<any, IItem> {
         this._user = props._user;
 
         this.handleChange = this.handleChange.bind(this);
+
+        if (props.props._currentPub != null){
+          this._pubData = props.props._currentPub;
+          (this.refs["title"] as any).value = this._pubData.Title;
+          this._body = this._pubData.Body;
+        }
     }
-    
 
     handleChange(event: any) {
       this._body = event.target.value;
     }
 
     private newItem()
+    {
+        fetch('http://localhost:1340/api/publication/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
+                                                                              '"Title": "' + (this.refs["title"] as any).value + '",' + 
+                                                                              '"Body": "' + this._body + '",' + 
+                                                                              '"PubDate": "' + (this.refs["date"] as DatePicker).state.selectedDate.toISOString() + '",' + 
+                                                                              '"AuthorId": "' + this.props.context.props.props.id + '"}}'}).then(res => res.json()).then(data => {
+                                                                                  let _data = data; 
+                                                                                  let _item : IItem = {name:_data.Title};
+                                                                                  this._form.setState({status:"Ready",user:this.props.context.props.props}); 
+                                                                                  this._form.closeItem();
+                                                                                  this.forceUpdate();
+                                                                            });
+    }
+
+    private loadItem(){
+
+    }
+
+    private updateItem()
     {
         fetch('http://localhost:1340/api/publication/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
                                                                               '"Title": "' + (this.refs["title"] as any).value + '",' + 
