@@ -82,22 +82,25 @@ function connect() {
 		if (err) {
 			return console.error(err.message);
 		}
-		db.serialize(function () {
-			db.get("select name from sqlite_master where type='table' and name='Authors'", function (err, table) {
-				if (!table)
-					db.run('CREATE TABLE Authors(id INTEGER PRIMARY KEY AUTOINCREMENT, name text,pwd text, user text )');
-			});
-
-			db.get("select name from sqlite_master where type='table' and name='Publications'", function (err, table) {
-				if (!table)
-					db.run('CREATE TABLE Publications(id INTEGER PRIMARY KEY AUTOINCREMENT, AuthorId INTEGER, PubDate DateTime, Body text, Title text  )');
-			});
-		});
+		
 
 		console.log('Connected to database.');
 	});
 
+}
 
+function initializeDb() {
+	db.serialize(function () {
+		db.get("select name from sqlite_master where type='table' and name='Authors'", function (err, table) {
+			if (!table)
+				db.run('CREATE TABLE Authors(id INTEGER PRIMARY KEY AUTOINCREMENT, name text,pwd text, user text )');
+		});
+
+		db.get("select name from sqlite_master where type='table' and name='Publications'", function (err, table) {
+			if (!table)
+				db.run('CREATE TABLE Publications(id INTEGER PRIMARY KEY AUTOINCREMENT, AuthorId INTEGER, PubDate DateTime, Body text, Title text  )');
+		});
+	});
 }
 
 /**
@@ -119,5 +122,6 @@ module.exports = {
 	runCommand: runCommand,
 	Command: Command,
 	runQuery : runQuery,
-	runAll : runAll
+	runAll : runAll,
+	initializeDb: initializeDb
 };

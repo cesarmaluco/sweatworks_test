@@ -16,6 +16,7 @@ import {
   SelectionMode,
   buildColumns
 } from 'office-ui-fabric-react/lib/DetailsList';
+import { timingSafeEqual } from 'crypto';
 
 export interface IReactCrudState {
   status: string;
@@ -43,14 +44,19 @@ export  class AppForm extends React.Component<any, IReactCrudState> {
       status: this.playersNotConfigured(nextProps) ? 'Please sign up or login ' : 'Ready',
       user: this.fillUser(nextProps)
     });
+
+    if (this.state.status == "Ready"){
+      this.forceUpdate();
+    }
     
   }
   /**
    * playersNotConfigured: Checks to sse if users are properly set up
    */
   private playersNotConfigured(props: any): boolean {
-    if (!this.state)
+    if (!this.state){
       return props.user === undefined;
+    }
     else
       return this.state.user == undefined;
   }

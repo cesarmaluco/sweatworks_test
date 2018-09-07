@@ -33,13 +33,12 @@ class Publication {
 	searchPublication(publication) {
 		return new Promise((resolve, reject) => {
 			var Params = new Array();
-			var hashToken = getHash();
 			let prepSQL = null;
 			if (publication && publication.AuthorId){
 				Params.push(publication.AuthorId);
 			
 				 prepSQL = new db.dataBaseAcess.Command('SELECT * FROM Publications where AuthorId = ? order by PubDate desc',Params);
-				 db.dataBaseAcess.runQuery(prepSQL).then((rows) => {
+				 db.dataBaseAcess.runAll(prepSQL).then((rows) => {
 					resolve(rows);
 				});
 			}

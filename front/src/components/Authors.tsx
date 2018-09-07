@@ -36,12 +36,19 @@ export class Authors extends React.Component<any, any> {
             _items = _data.map((item: any, i: number): JSX.Element => {
                 return (
                     <div className="ms-Grid-row" key={item._id}>
-                        <div className="mns-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg6">
+                        <span className="mns-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
                             {item.name}
-                        </div>
-                        <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg6">
+                        </span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
                             {item.user}
-                        </div>
+                        </span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
+                        <DefaultButton
+                                data-automation-id='test'
+                                description='Create new item'
+                                text='Check Publications'
+                            />
+                        </span>
                     </div>
                 );
             });

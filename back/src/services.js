@@ -25,6 +25,8 @@ let deletePublication = publication.deletePublication;
 const apiServer = new DynamicServer("apiServer", Config.servicePort);
 
 dataBaseAcess.connect();
+dataBaseAcess.initializeDb();
+
 
 // IMPLEMENTATION /////////////////////////////////////////////////////////////////////////
 apiServer.addEndpoint("createPublication", createPublication);
