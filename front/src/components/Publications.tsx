@@ -2,28 +2,30 @@ import * as React from 'react';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { ItemForm } from './ItemForm';
+import {  IUser } from "./SignUp";
 let _items: JSX.Element[];
 
 
 
-export class Items extends React.Component<any, any> {
+export class Publications extends React.Component<any, any> {
 
     private _isFetchingItems: boolean;
     private _selection: Selection;
     private _showForm: boolean;
+    private _user : IUser;
 
-    constructor() {
-        super();
-
+    constructor(props: any) {
+        super(props);
+        this._user = props;
     }
 
     public componentWillMount() {
-        this.getUsers();
+        this.getPublications(this._user.id);
 
     }
 
     public componentWillUpdate() {
-        this.getUsers();
+        this.getPublications(this._user.id);
     }
 
     public newItem() {
@@ -31,8 +33,17 @@ export class Items extends React.Component<any, any> {
         this.forceUpdate();
     }
 
-    public getUsers() {
-        fetch('http://localhost:1340/api/consultarItem', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"filtros":{}}' }).then(res => res.json()).then(data => {
+    public closeItem(){
+        this._showForm = false;
+        this.getPublications(this._user.id);
+        this.forceUpdate();
+    }
+
+    public getPublications(authorId: any){
+        if (authorId == null)
+            return;
+            
+        fetch('http://localhost:1340/api/publication/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"filters":{AuthorId:"' + authorId + '"}}' }).then(res => res.json()).then(data => {
             let _data = data;
             let shouldUpdate = false;
             if ((_items) && (_items.length < _data.length))
@@ -53,6 +64,7 @@ export class Items extends React.Component<any, any> {
         });
     }
 
+   
     public render() {
 
         return (

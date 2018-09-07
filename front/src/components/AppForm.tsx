@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { SignUp, IUser } from "./SignUp";
-import { Users } from "./Users";
-import { Items } from "./Items";
+import { Authors } from "./Authors";
+import { Publications } from "./Publications";
 import {Login} from "./Login";
 import {
   CheckboxVisibility,
@@ -65,7 +65,12 @@ export  class AppForm extends React.Component<any, IReactCrudState> {
 
     return (
       <div > 
-      {this.state.status}
+      {this.state.status} 
+      {(this.state.user)
+                ?
+                <span>{this.state.user.name}</span>
+                :""
+      }
       <div className="ms-Grid" style={{display:(this.playersNotConfigured(this.props)?"block":"none")}}>
           
          <Panel
@@ -80,25 +85,20 @@ export  class AppForm extends React.Component<any, IReactCrudState> {
         </Panel>
       </div>
       <div className="ms-Grid" style={{display:(!this.playersNotConfigured(this.props)?"block":"none")}}>
-          <div className="ms-Grid" style={{display:(this.state.user && this.state.user.roles[0].type == "admin"?"block":"none")}}>
+          <div className="ms-Grid" style={{display:(this.state.user ?"block":"none")}}>
                <div className="ms-Grid-row">
-                 <p className="ms-Panel-headerText">Users</p> 
-                 <Users ref='_users'/>
+                 <p className="ms-Panel-headerText">Authors</p> 
+                 <Authors ref='_users'/>
                 
               </div>
                <div className="ms-Grid-row">
-                 <p className="ms-Panel-headerText">Items</p> 
-                 <Items/>
+                 <p className="ms-Panel-headerText">Publications</p> 
+                 <Publications props={this.state.user}/>
               </div>
               
               
           </div>
-           <div className="ms-Grid" style={{display:(this.state.user && this.state.user.roles[0].type == "user"?"block":"none")}}>
-              <div className="ms-Grid-row">
-                 <p className="ms-Panel-headerText">Items</p> 
-                 <Items/>
-              </div>
-          </div>
+           
       </div>
       </div>
       

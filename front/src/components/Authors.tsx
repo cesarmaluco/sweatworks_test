@@ -7,7 +7,7 @@ let _items: JSX.Element[];
 
 
 
-export class Users extends React.Component<any, any> {
+export class Authors extends React.Component<any, any> {
 
     private _isFetchingItems: boolean;
     private _selection: Selection;
@@ -28,7 +28,7 @@ export class Users extends React.Component<any, any> {
     }
 
     public getUsers() {
-        fetch('http://localhost:1340/api/consultarMensagem', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"filtros":{}}' }).then(res => res.json()).then(data => {
+        fetch('http://localhost:1340/api/author/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"data":{}}' }).then(res => res.json()).then(data => {
             let _data = data;
             let shouldUpdate = false;
             if ((_items) && (_items.length < _data.length))
@@ -36,11 +36,11 @@ export class Users extends React.Component<any, any> {
             _items = _data.map((item: any, i: number): JSX.Element => {
                 return (
                     <div className="ms-Grid-row" key={item._id}>
-                        <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg6">
+                        <div className="mns-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg6">
                             {item.name}
                         </div>
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg6">
-                            {item.email}
+                            {item.user}
                         </div>
                     </div>
                 );
@@ -59,13 +59,7 @@ export class Users extends React.Component<any, any> {
 
         return (
             <div className='ms-DetailsListAdvancedExample'>
-                <DefaultButton
-                    data-automation-id='test'
-                    onClick={() => this.newUser()}
-                    iconProps={{ iconName: 'Add' }}
-                    description='Create new user'
-                    text='Create user'
-                />
+                
                 <Panel
                     isOpen={this._showForm}
                     type={PanelType.smallFixedNear}

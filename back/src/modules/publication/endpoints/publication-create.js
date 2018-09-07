@@ -2,11 +2,9 @@
 let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
 
-
-/** Cria uma mensagem no banco de dados  */
-function createPublication(req, res, next,proxyMensagem) {
+function createPublication(req, res, next) {
 	let pub = new Publication();
-	var reqMensagem = req.body.Publication;
+	var reqMensagem = req.body.data;
 	pub.createPublication(reqMensagem).then((msgCreated) => {
 		return res.json(msgCreated);
 	}).catch((err) => {

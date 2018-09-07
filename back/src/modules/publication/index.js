@@ -1,8 +1,8 @@
 // IMPORTS /////////////////////////////////////////////////////////////////////
-let createPublication = require("./endpoints/Publication-create");
-let searchPublication = require("./endpoints/Publication-search");
-let updatePublication = require("./endpoints/Publication-update");
-let deletePublication = require("./endpoints/Publication-delete");
+let createPublication = require("./endpoints/publication-create");
+let searchPublication = require("./endpoints/publication-search");
+let updatePublication = require("./endpoints/publication-update");
+let deletePublication = require("./endpoints/publication-delete");
 
 
 let BusPub = require("./Publication");

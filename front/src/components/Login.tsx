@@ -14,14 +14,14 @@ export class Login extends React.Component<any, IUser> {
 
     public logIn() {
         fetch('http://localhost:1340/api/login', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"filtros":{' +
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"data":{' +
 
-                '"email" : "' + this.refs["email"] + '",' +
+                '"Email" : "' + (this.refs["email"] as any).value + '",' +
 
-                '"senha": "' + this.refs["pwd"] + '"}}'
+                '"Pwd": "' + (this.refs["pwd"] as any).value + '"}}'
         }).then(res => res.json()).then(data => {
             let _data = data;
-            let _user: IUser = { nome: _data.name, email: _data.email, roles: _data.roles };
+            let _user: IUser = { name: _data.name, email: _data.user, id: _data.id};
             this._form.setState({ status: "Ready", user: _user });
             this.forceUpdate();
         });

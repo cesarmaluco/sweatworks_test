@@ -8,6 +8,71 @@ let db = null;
 
 // IMPLEMENTATION //////////////////////////////////////////////////////////////
 
+class Command {
+	constructor(command, params) {
+		this._command = command;
+		this._params = params;
+	}
+	get Command() { return this._command; }
+	get Params() { return this._params; }
+
+}
+
+function runQuery(command) {
+	return new Promise((resolve, reject) => {
+		var sql = command.Command;
+		var params = command.Params;
+		connect();
+		
+		db.get(sql, params, (err, rows) => {
+			if (err) {
+			  return console.error(err.message);
+			}
+			resolve(rows);
+			disconnect();
+		  });
+
+		// close the database connection
+		
+	})
+}
+
+function runAll(command) {
+	return new Promise((resolve, reject) => {
+		var sql = command.Command;
+		var params = command.Params;
+		connect();
+		
+		db.all(sql, params, (err, rows) => {
+			if (err) {
+			  return console.error(err.message);
+			}
+			resolve(rows);
+			disconnect();
+		  });
+
+		// close the database connection
+		
+	})
+}
+
+function runCommand(command) {
+	var sql = command.Command;
+	var params = command.Params;
+	connect();
+	db.run(sql, params, function (err) {
+		if (err) {
+			return console.log(err.message);
+		}
+		// get the last insert id
+		console.log(`A row has been inserted with rowid ${this.lastID}`);
+		disconnect();
+	});
+
+	// close the database connection
+	
+}
+
 /**
  * Database access
  */
@@ -32,7 +97,7 @@ function connect() {
 		console.log('Connected to database.');
 	});
 
-	
+
 }
 
 /**
@@ -50,5 +115,9 @@ function disconnect() {
 // EXPORTS /////////////////////////////////////////////////////////////////////
 module.exports = {
 	connect: connect,
-	disconnect: disconnect
+	disconnect: disconnect,
+	runCommand: runCommand,
+	Command: Command,
+	runQuery : runQuery,
+	runAll : runAll
 };

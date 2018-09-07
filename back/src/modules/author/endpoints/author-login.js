@@ -8,23 +8,16 @@ var jwt = require('jsonwebtoken');
 /** Consultar  mensagens no banco de dados  */
 function login(req, res, next,proxyMensagem) {
 	
-	var filtros = req.body.filtros;
+	var data = req.body.data;
 	let author = new Author();
-	var login = author.searchAuthor(filtros.user)
+	var login = author.searchAuthor(data)
 		.then((user) => {
-			user = user[0];
-			filtros.senha = getHash(filtros.senha, filtros.senha);
-            if (user.pwd !== filtros.senha) {
+            if (user.pwd !== data.Pwd) {
                 return res.status(401).send(mensagem);
             } else {
                 user.token = jwt.sign(user, getHash(), {expiresIn: 60});
-                user.last_login = new Date();
-                user.save(function (err, userCreated) {
-                    if (err) {
-                        return res.send("Login failed");
-                    }
-                    return res.json(userCreated);
-                });
+				user.last_login = new Date();
+				return res.send(user);
             }
 		}).catch((err) => {
 			return res.send("Erro ao consultar mensagem" + err);

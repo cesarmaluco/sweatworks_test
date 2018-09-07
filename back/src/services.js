@@ -27,6 +27,11 @@ const apiServer = new DynamicServer("apiServer", Config.servicePort);
 dataBaseAcess.connect();
 
 // IMPLEMENTATION /////////////////////////////////////////////////////////////////////////
+apiServer.addEndpoint("createPublication", createPublication);
+apiServer.addEndpoint("updatePublication", updatePublication);
+apiServer.addEndpoint("deletePublication", deletePublication);
+apiServer.addEndpoint("searchPublication", searchPublication);
+
 apiServer.addEndpoint("createAuthor", createAuthor);
 apiServer.addEndpoint("updateAuthor", updateAuthor);
 apiServer.addEndpoint("deleteAuthor", deleteAuthor);
@@ -34,10 +39,7 @@ apiServer.addEndpoint("searchAuthor", searchAuthor);
 apiServer.addEndpoint("login", login);
 
 
-apiServer.addEndpoint("createPublication", createPublication);
-apiServer.addEndpoint("updatePublication", updatePublication);
-apiServer.addEndpoint("deletePublication", deletePublication);
-apiServer.addEndpoint("searchPublication", searchPublication);
+
 //*******************************************
 
 
