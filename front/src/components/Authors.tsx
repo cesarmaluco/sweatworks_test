@@ -12,10 +12,15 @@ export class Authors extends React.Component<any, any> {
     private _isFetchingItems: boolean;
     private _selection: Selection;
     private _showForm: boolean;
+    private _callbackPub : any;
 
-    constructor() {
-        super();
+    constructor(props: any) {
+        super(props);
+        this._callbackPub = props.props._callBackPublication;
+    }
 
+    public callBackPublications(id: any){
+        this._callbackPub(id);
     }
 
     public componentWillMount() {
@@ -35,17 +40,18 @@ export class Authors extends React.Component<any, any> {
                 shouldUpdate = true;
             _items = _data.map((item: any, i: number): JSX.Element => {
                 return (
-                    <div className="ms-Grid-row" key={item._id}>
-                        <span className="mns-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
+                    <div className="ms-Grid-row" key={item.id}>
+                        <span className="mns-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
                             {item.name}
                         </span>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
                             {item.user}
                         </span>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4">
-                        <DefaultButton
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
+                            <DefaultButton
                                 data-automation-id='test'
                                 description='Create new item'
+                                onClick={() => this.callBackPublications(item.id)}
                                 text='Check Publications'
                             />
                         </span>
@@ -76,6 +82,11 @@ export class Authors extends React.Component<any, any> {
                     <SignUp context={this} role="user"/>
                 </Panel>
                 <div className="ms-Grid">
+                    <div className="ms-Grid-row">
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Name</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">User Name</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Actions</span>
+                    </div>
                     {_items}
                 </div>
             </div>

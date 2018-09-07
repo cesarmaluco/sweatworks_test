@@ -28,13 +28,14 @@ export class Publications extends React.Component<any, any> {
 
     public componentWillReceiveProps(nextProps: any): void {
         this._user = nextProps.props;
-        this.getPublications(this._user.id);
+        if (this._user.behalf != null)
+            this.getPublications(this._user.behalf);
+        else
+            this.getPublications(this._user.id);
 
     }
 
-    public componentWillUpdate() {
-        
-    }
+    
 
     public newItem() {
         this._showForm = true;
@@ -57,9 +58,12 @@ export class Publications extends React.Component<any, any> {
 
             _items = _data.map((item: any, i: number): JSX.Element => {
                 return (
-                    <div className="ms-Grid-row" key={item._id}>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
+                    <div className="ms-Grid-row" key={item.id}>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2">
                             {item.Title}
+                        </span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2">
+                            {item.PubDate}
                         </span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
                             <DefaultButton
@@ -107,6 +111,12 @@ export class Publications extends React.Component<any, any> {
                     <ItemForm context={this} />
                 </Panel>
                 <div className="ms-Grid">
+                    <div className="ms-Grid-row">
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2 ms-font-xl">Title</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2 ms-font-xl">Published Date</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Delete</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Update</span>
+                    </div>
                     {_items}
                 </div>
             </div>
