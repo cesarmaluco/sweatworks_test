@@ -21,8 +21,13 @@ export class Login extends React.Component<any, IUser> {
                 '"Pwd": "' + (this.refs["pwd"] as any).value + '"}}'
         }).then(res => res.json()).then(data => {
             let _data = data;
-            let _user: IUser = { name: _data.name, email: _data.user, id: _data.id};
-            this._form.setState({ status: "Ready", user: _user });
+            if (!data.name){
+                //erro
+            }
+            else{
+                let _user: IUser = { name: _data.name, email: _data.user, id: _data.id};
+                this._form.setState({ status: "Ready", user: _user });
+            }
             this.forceUpdate();
         });
     }

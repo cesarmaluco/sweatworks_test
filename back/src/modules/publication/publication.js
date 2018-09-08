@@ -26,7 +26,14 @@ class Publication {
 
 	updatePublication(publication) {
 		return new Promise((resolve, reject) => {
-
+			var Params = new Array();
+			Params.push(publication.PubDate);
+			Params.push(publication.Body);
+			Params.push(publication.Title);
+			Params.push(publication.Id);
+			let prepSQL = new db.dataBaseAcess.Command('UPDATE Publications set PubDate = ? ,Body = ?,Title = ? where Id  = ?', Params);
+			db.dataBaseAcess.runCommand(prepSQL);
+			resolve(publication);
 		});
 	}
 
@@ -46,9 +53,14 @@ class Publication {
 	}
 
 
-	deletePublication(mensagem) {
+	deletePublication(publication) {
 		return new Promise((resolve, reject) => {
-
+			var Params = new Array();
+			Params.push(publication.Id);
+			let prepSQL = null;
+			prepSQL = new db.dataBaseAcess.Command('DELETE FROM Publications where Id = ? ',Params);
+			db.dataBaseAcess.runCommand(prepSQL);
+			resolve(publication);
 		});
 	}
 

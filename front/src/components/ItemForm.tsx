@@ -9,7 +9,10 @@ import { addMonths, addYears } from 'office-ui-fabric-react/lib/utilities/dateMa
 import {  IUser } from "./SignUp";
 
 export interface IItem {
-  name?: string;
+  Title?: string;
+  Body? :string;
+  Date? : any;
+  AuthorId? : any;
 }
 
 export interface IRole {
@@ -67,6 +70,7 @@ export  class ItemForm extends React.Component<any, IItem> {
     private _body : any;
     private _date: any;
     private _pubData: any;
+    private _title : any;
 
     constructor(props: any, state: IItem) {
         super(props);
@@ -74,29 +78,47 @@ export  class ItemForm extends React.Component<any, IItem> {
         
         this._callback = props.callback; 
         this._user = props._user;
+        this._date = new Date();
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeBody = this.handleChangeBody.bind(this);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
 
         if (props.props._currentPub != null){
           this._pubData = props.props._currentPub;
-          (this.refs["title"] as any).value = this._pubData.Title;
-          this._body = this._pubData.Body;
+          props.props._currentPub = null;
         }
     }
 
-    handleChange(event: any) {
+    handleChangeBody(event: any) {
       this._body = event.target.value;
+      this.setState({Body: this._body});
+    }
+
+    handleChangeTitle(newvalue: any) {
+      this._title = newvalue;
+      this.setState({Title: this._title});
+    }
+
+    public componentDidMount(){
+      
+      if (this._pubData != null){
+        this._title = this._pubData.Title;
+        this._body = this._pubData.Body;
+        this._date = new Date(this._pubData.PubDate);
+        this.setState({Body: this._pubData.Body, AuthorId: this._pubData.AuthorId, Date: new Date(this._pubData.PubDate), Title: this._pubData.Title});
+        this.forceUpdate();
+      }
     }
 
     private newItem()
     {
         fetch('http://localhost:1340/api/publication/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
-                                                                              '"Title": "' + (this.refs["title"] as any).value + '",' + 
+                                                                              '"Title": "' + this._title + '",' + 
                                                                               '"Body": "' + this._body + '",' + 
                                                                               '"PubDate": "' + (this.refs["date"] as DatePicker).state.selectedDate.toISOString() + '",' + 
                                                                               '"AuthorId": "' + this.props.context.props.props.id + '"}}'}).then(res => res.json()).then(data => {
                                                                                   let _data = data; 
-                                                                                  let _item : IItem = {name:_data.Title};
+                                                                                  let _item : IItem = {Title:_data.Title};
                                                                                   this._form.setState({status:"Ready",user:this.props.context.props.props}); 
                                                                                   this._form.closeItem();
                                                                                   this.forceUpdate();
@@ -109,13 +131,12 @@ export  class ItemForm extends React.Component<any, IItem> {
 
     private updateItem()
     {
-        fetch('http://localhost:1340/api/publication/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
-                                                                              '"Title": "' + (this.refs["title"] as any).value + '",' + 
+        fetch('http://localhost:1340/api/publication/update',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
+                                                                              '"Title": "' + this._title + '",' + 
                                                                               '"Body": "' + this._body + '",' + 
                                                                               '"PubDate": "' + (this.refs["date"] as DatePicker).state.selectedDate.toISOString() + '",' + 
-                                                                              '"AuthorId": "' + this.props.context.props.props.id + '"}}'}).then(res => res.json()).then(data => {
-                                                                                  let _data = data; 
-                                                                                  let _item : IItem = {name:_data.Title};
+                                                                              '"Id": "' + this._pubData.id + '"}}'}).then(res => res.json()).then(data => {
+                                                                                  this._pubData = null;
                                                                                   this._form.setState({status:"Ready",user:this.props.context.props.props}); 
                                                                                   this._form.closeItem();
                                                                                   this.forceUpdate();
@@ -126,27 +147,32 @@ export  class ItemForm extends React.Component<any, IItem> {
     
 
     return (
+
       <div>       
         <div className="ms-Grid">
             <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
-                      <TextField label='Name' ref='title' />
+                      <TextField  ref='title' value={this._title} onChanged={this.handleChangeTitle} />
                 </div>
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
                 <DatePicker
                   isRequired={false}
                   firstDayOfWeek={DayOfWeek.Sunday}
                   strings={DayPickerStrings}
+                  value={this._date}
                   ref="date"
                   placeholder="Select a date..."
                   allowTextInput={true}
         />
                 </div>
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
-                  <textarea value={this._body} onChange={this.handleChange} cols={20} rows={20}  />
+                  <textarea value={this._body} onChange={this.handleChangeBody} cols={20} rows={20}  />
                 </div>
             </div>
             <div className="ms-Grid-row">
+              {(this._pubData == null) 
+                ?
+                
                  <DefaultButton
                     data-automation-id='test'
                     onClick={() => this.newItem()}
@@ -154,6 +180,17 @@ export  class ItemForm extends React.Component<any, IItem> {
                     description='Create new item'
                     text='Create item'
                 />
+              
+                :
+                   <DefaultButton
+                   data-automation-id='test'
+                   onClick={() => this.updateItem()}
+                   iconProps={ { iconName: 'Add' } }
+                   description='Update item'
+                   text='Update item'
+               />
+
+              }
             </div>   
         </div>
       </div>

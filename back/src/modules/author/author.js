@@ -21,8 +21,11 @@ class Author {
 			Params.push(author.Pwd);
 			Params.push(author.User);
 			let prepSQL = new db.dataBaseAcess.Command('INSERT INTO AUthors (Name,Pwd,User) values(?,?,?)',Params);
-			db.dataBaseAcess.runCommand(prepSQL);
-			resolve(author);
+			db.dataBaseAcess.runCommand(prepSQL).then((id) => {
+				author.Id = id;
+				resolve(author);
+			});
+			
 		});
 	}
 	

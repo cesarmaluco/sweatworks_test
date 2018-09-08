@@ -5,7 +5,7 @@ let EndpointDescription = require("../../server/endpoint-description");
 
 function updatePublication(req, res, next,proxyMensagem) {
 	let pub = new Publication();
-	var reqMensagem = req.body.Publication;
+	var reqMensagem = req.body.data;
 	pub.updatePublication(reqMensagem).then((msgCreated) => {
 		return res.json(msgCreated);
 	}).catch((err) => {

@@ -34,7 +34,7 @@ export  class SignUp extends React.Component<any, IUser> {
                                                                             '"User" : "' + (this.refs["email"] as any).value + '",' +
                                                                             '"Pwd": "' + (this.refs["pwd"] as any).value + '"}}'}).then(res => res.json()).then(data => {
                                                                                   let _data = data; 
-                                                                                  let _user : IUser = {name:_data.name,email:_data.email,roles:_data.roles};
+                                                                                  let _user : IUser = {name:_data.Name,email:_data.User, id : _data.Id};
                                                                                   this._form.setState({status:"Ready",user:_user}); 
                                                                                   this.forceUpdate();
                                                                             });

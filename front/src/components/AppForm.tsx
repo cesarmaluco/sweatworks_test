@@ -16,29 +16,31 @@ import {
   SelectionMode,
   buildColumns
 } from 'office-ui-fabric-react/lib/DetailsList';
-import { timingSafeEqual } from 'crypto';
-import { ThemeSettingName } from '../../node_modules/@uifabric/styling';
+import { CommandBar, ICommandBarProps } from 'office-ui-fabric-react/lib/CommandBar';
+import { Persona, PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Persona';
+
 
 export interface IReactCrudState {
   status: string;
   user: IUser;
 
-}
+} 
 
 export class AppForm extends React.Component<any, IReactCrudState> {
 
   private showPanel: boolean = true;
   private _callBackPublication: any;
-
+  private _persona : any;
   constructor(props: any, state: IReactCrudState) {
     super(props);
-
+    
     this.state = {
       status: this.playersNotConfigured(this.props) ? 'Please sign up or login' : 'Ready',
       user: this.fillUser(props)
     };
 
     this._callBackPublication = this.callBackPublications;
+    this.logOut = this.logOut.bind(this);
   }
 
 
@@ -61,19 +63,46 @@ export class AppForm extends React.Component<any, IReactCrudState> {
     if (!this.state) {
       return props.user === undefined;
     }
-    else
+    else{
+      this.fillUser(this.state);
       return this.state.user == undefined;
+
+    }
   }
 
 
   private fillUser(nextProps: any): IUser {
+    let name = (nextProps.user != null ? nextProps.user.name : "");
+    let initials = name.split(' ');
+    let imgIni = '';
+    if (initials.length > 1)
+       imgIni = initials[0].substring(0,1) + initials[1].substring(0,1);
+    else
+       imgIni = initials[0].substring(0,1) ;
+
+    this._persona = {
+      imageUrl: '',
+      secondaryText: 'Author',
+      imageInitials: imgIni ,
+      text: name
+    };
+
     return nextProps.user;
+  }
+
+  logOut(evt: any){
+    this.setState({status:"Please sign up or login", user: null});
+    this.forceUpdate();
+  }
+
+  changeDetails(){
+
   }
 
   private callBackPublications(id: any) {
     this.props.props.state.user.behalf = id;
     this.props.props.setState({ status: "Ready", user: this.props.props.state.user })
-    
+
   }
 
   public render(): JSX.Element {
@@ -81,10 +110,32 @@ export class AppForm extends React.Component<any, IReactCrudState> {
 
     return (
       <div >
-        {this.state.status}
+        
         {(this.state.user)
           ?
-          <span>{this.state.user.name}</span>
+          <div>
+            <span> <Persona {...this._persona} size={PersonaSize.regular}  /></span>
+            <CommandBar
+              items={ [
+                {
+                  key: 'properties',
+                  name: 'Log out',
+                  eventDetail: this.props.eventDetail,
+                  eventForm: this.props.eventForm,
+                  event: this.props.event,
+                  onClick: this.logOut
+                },
+                 {
+                  key: 'guestservices',
+                  name: 'Change Author Details',
+                  eventDetail: this.props.eventDetail,
+                  inviteForm: this.props.inviteForm,
+                  event: this.props.event,
+                  onClick: this.changeDetails
+                }]}
+              
+            />
+          </div>
           : ""
         }
         <div className="ms-Grid" style={{ display: (this.playersNotConfigured(this.props) ? "block" : "none") }}>

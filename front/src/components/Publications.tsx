@@ -14,7 +14,7 @@ export class Publications extends React.Component<any, any> {
     private _selection: Selection;
     private _showForm: boolean;
     private _user: IUser;
-    private _currentPub : any;
+    private _currentPub: any;
 
     constructor(props: any, state: any) {
         super(props);
@@ -41,15 +41,23 @@ export class Publications extends React.Component<any, any> {
         this.forceUpdate();
     }
 
-    public updateItem(item: any){
+    public updateItem(item: any) {
         this._showForm = true;
-        this._currentPub  = item;
-        this.setState({ publication: this._currentPub});
+        this._currentPub = item;
+        this.setState({ publication: this._currentPub });
         this.forceUpdate();
     }
 
-    public deleteItem(item: any){
-        this._currentPub  = item;
+    public deleteItem(item: any) {
+        this._currentPub = item;
+        fetch('http://localhost:1340/api/publication/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"Publication":{"Id":"' + this._currentPub.id + '"}}' }).then(res => res.json()).then(data => {
+            this.getPublications(this._user.id);
+            this.forceUpdate();
+        })
+    }
+
+    public formatDate(date: any) {
+        return new Date(date);
     }
 
     public closeItem() {
@@ -67,29 +75,38 @@ export class Publications extends React.Component<any, any> {
             let shouldUpdate = false;
 
             _items = _data.map((item: any, i: number): JSX.Element => {
+                item.PubDate = new Date(item.PubDate);
                 return (
                     <div className="ms-Grid-row" key={item.id}>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2">
                             {item.Title}
                         </span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg2">
-                            {item.PubDate}
+                            {(item.PubDate.getMonth() + 1) + '/' + item.PubDate.getDate() + "/" + item.PubDate.getFullYear()}
                         </span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
-                            <DefaultButton
-                                data-automation-id='test'
-                                onClick={() => this.deleteItem(item)}
-                                description='Delete publication'
-                                text='Delete'
-                            />
+                            {(this._user.behalf == null || (this._user.behalf != null && this._user.behalf == this._user.id)) ?
+                                <DefaultButton
+                                    data-automation-id='test'
+                                    onClick={() => this.deleteItem(item)}
+                                    description='Delete publication'
+                                    text='Delete'
+                                />
+                                :
+                                ""
+                            }
                         </span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
-                            <DefaultButton
-                                data-automation-id='test'
-                                onClick={() => this.updateItem(item)}
-                                description='Update publications'
-                                text='Update'
-                            />
+                            {(this._user.behalf == null || (this._user.behalf != null && this._user.behalf == this._user.id)) ?
+                                <DefaultButton
+                                    data-automation-id='test'
+                                    onClick={() => this.updateItem(item)}
+                                    description='Update publications'
+                                    text='Update'
+                                />
+                                :
+                                ""
+                            }
                         </span>
                     </div>
                 );
