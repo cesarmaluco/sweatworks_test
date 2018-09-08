@@ -31,7 +31,19 @@ class Author {
 	
 	updateAuthor(author) {
 		return new Promise((resolve, reject) => {
-			resolve();
+			var Params = new Array();
+			var hashToken = getHash();
+			author.Pwd = getHash(author.Pwd, author.Pwd);
+			author.Token = jwt.sign(author, hashToken, {expiresIn: 60});
+			Params.push(author.Name);
+			Params.push(author.Pwd);
+			Params.push(author.User);
+			Params.push(author.Id);
+			let prepSQL = new db.dataBaseAcess.Command('Update AUthors set Name = ?, Pwd = ? , User = ? where Id = ? ',Params);
+			db.dataBaseAcess.runCommand(prepSQL).then((id) => {
+				resolve(author);
+			});
+			
 		});
 	}
 	

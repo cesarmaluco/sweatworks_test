@@ -62,10 +62,7 @@ export class Authors extends React.Component<any, any> {
                 this.setState({ _items })
         });
     }
-    public newUser() {
-        this._showForm = true;
-        this.forceUpdate();
-    }
+  
 
     public render() {
 
@@ -73,14 +70,7 @@ export class Authors extends React.Component<any, any> {
         return (
             <div className='ms-DetailsListAdvancedExample'>
                 
-                <Panel
-                    isOpen={this._showForm}
-                    type={PanelType.smallFixedNear}
-                    onDismiss={() => { this._showForm = false }}
-                    headerText='New User'
-                >
-                    <SignUp context={this} role="user"/>
-                </Panel>
+               
                 <div className="ms-Grid">
                     <div className="ms-Grid-row">
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Name</span>

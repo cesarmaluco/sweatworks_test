@@ -24,16 +24,17 @@ export interface IReactCrudState {
   status: string;
   user: IUser;
 
-} 
+}
 
 export class AppForm extends React.Component<any, IReactCrudState> {
 
   private showPanel: boolean = true;
   private _callBackPublication: any;
-  private _persona : any;
+  private _showForm: boolean = false;
+  private _persona: any;
   constructor(props: any, state: IReactCrudState) {
     super(props);
-    
+
     this.state = {
       status: this.playersNotConfigured(this.props) ? 'Please sign up or login' : 'Ready',
       user: this.fillUser(props)
@@ -41,6 +42,7 @@ export class AppForm extends React.Component<any, IReactCrudState> {
 
     this._callBackPublication = this.callBackPublications;
     this.logOut = this.logOut.bind(this);
+    this.changeDetails = this.changeDetails.bind(this);
   }
 
 
@@ -63,7 +65,7 @@ export class AppForm extends React.Component<any, IReactCrudState> {
     if (!this.state) {
       return props.user === undefined;
     }
-    else{
+    else {
       this.fillUser(this.state);
       return this.state.user == undefined;
 
@@ -76,27 +78,29 @@ export class AppForm extends React.Component<any, IReactCrudState> {
     let initials = name.split(' ');
     let imgIni = '';
     if (initials.length > 1)
-       imgIni = initials[0].substring(0,1) + initials[1].substring(0,1);
+      imgIni = initials[0].substring(0, 1) + initials[1].substring(0, 1);
     else
-       imgIni = initials[0].substring(0,1) ;
+      imgIni = initials[0].substring(0, 1);
 
     this._persona = {
       imageUrl: '',
       secondaryText: 'Author',
-      imageInitials: imgIni ,
+      imageInitials: imgIni,
       text: name
     };
 
     return nextProps.user;
   }
 
-  logOut(evt: any){
-    this.setState({status:"Please sign up or login", user: null});
+
+  logOut(evt: any) {
+    this.setState({ status: "Please sign up or login", user: null });
     this.forceUpdate();
   }
 
-  changeDetails(){
-
+  changeDetails(evt: any) {
+      this._showForm = true;
+      this.forceUpdate();
   }
 
   private callBackPublications(id: any) {
@@ -110,13 +114,21 @@ export class AppForm extends React.Component<any, IReactCrudState> {
 
     return (
       <div >
-        
+        <Panel
+          isOpen={this._showForm}
+          type={PanelType.smallFixedNear}
+          onDismiss={() => { this._showForm = false }}
+          headerText='User'
+        >
+          <SignUp context={this} />
+        </Panel>
+
         {(this.state.user)
           ?
           <div>
-            <span> <Persona {...this._persona} size={PersonaSize.regular}  /></span>
+            <span> <Persona {...this._persona} size={PersonaSize.regular} /></span>
             <CommandBar
-              items={ [
+              items={[
                 {
                   key: 'properties',
                   name: 'Log out',
@@ -125,7 +137,7 @@ export class AppForm extends React.Component<any, IReactCrudState> {
                   event: this.props.event,
                   onClick: this.logOut
                 },
-                 {
+                {
                   key: 'guestservices',
                   name: 'Change Author Details',
                   eventDetail: this.props.eventDetail,
@@ -133,7 +145,7 @@ export class AppForm extends React.Component<any, IReactCrudState> {
                   event: this.props.event,
                   onClick: this.changeDetails
                 }]}
-              
+
             />
           </div>
           : ""
