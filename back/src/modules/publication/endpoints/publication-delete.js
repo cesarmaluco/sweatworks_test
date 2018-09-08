@@ -2,7 +2,7 @@
 let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
 
-
+//DELETE THE PUBLICATION SERVICE
 function deletePublication(req, res, next,proxyMensagem) {
 	let pub = new Publication();
 	var reqMensagem = req.body.Publication;

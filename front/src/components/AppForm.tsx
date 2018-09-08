@@ -67,6 +67,7 @@ export class AppForm extends React.Component<any, IReactCrudState> {
     }
     else {
       this.fillUser(this.state);
+      this._showForm = false;
       return this.state.user == undefined;
 
     }

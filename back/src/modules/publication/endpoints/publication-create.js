@@ -2,6 +2,7 @@
 let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
 
+//CREATES  A NEW PUBLICATION FOR SPECIFIC AUTHOR
 function createPublication(req, res, next) {
 	let pub = new Publication();
 	var reqMensagem = req.body.data;

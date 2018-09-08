@@ -29,10 +29,12 @@ export class Publications extends React.Component<any, any> {
 
     public componentWillReceiveProps(nextProps: any): void {
         this._user = nextProps.props;
-        if (this._user.behalf != null)
-            this.getPublications(this._user.behalf);
-        else
-            this.getPublications(this._user.id);
+        if (this._user != null) {
+            if (this._user.behalf != null)
+                this.getPublications(this._user.behalf);
+            else
+                this.getPublications(this._user.id);
+        }
 
     }
 
@@ -120,16 +122,22 @@ export class Publications extends React.Component<any, any> {
 
 
     public render() {
+        if (this._user == null) return (<div></div>);
 
         return (
+            
             <div className='ms-DetailsListAdvancedExample'>
-                <DefaultButton
-                    data-automation-id='test'
-                    onClick={() => this.newItem()}
-                    iconProps={{ iconName: 'Add' }}
-                    description='Create new item'
-                    text='Create item'
-                />
+                
+                {(this._user.behalf == null || (this._user.behalf != null && this._user.behalf == this._user.id)) ?
+                    <DefaultButton
+                        data-automation-id='test'
+                        onClick={() => this.newItem()}
+                        iconProps={{ iconName: 'Add' }}
+                        description='Create new item'
+                        text='Create item'
+                    />
+                    : ""
+                }
                 <Panel
                     isOpen={this._showForm}
                     type={PanelType.smallFixedNear}

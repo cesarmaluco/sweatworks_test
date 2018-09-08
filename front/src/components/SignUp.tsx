@@ -86,7 +86,7 @@ export class SignUp extends React.Component<any, IUser> {
                         </div>
                     </div>
                     <div className="ms-Grid-row">
-                    {(this._user == null)  ?
+                    {(this._user.name == "")  ?
                         <DefaultButton
                             data-automation-id='test'
                             onClick={() => this.signUp()}

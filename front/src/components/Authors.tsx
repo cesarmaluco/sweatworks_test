@@ -28,6 +28,10 @@ export class Authors extends React.Component<any, any> {
 
     }
 
+    public componentWillReceiveProps(nextProps: any): void {
+        this.getUsers();
+    }
+
     public componentWillUpdate() {
         this.getUsers();
     }
@@ -35,30 +39,29 @@ export class Authors extends React.Component<any, any> {
     public getUsers() {
         fetch('http://localhost:1340/api/author/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"data":{}}' }).then(res => res.json()).then(data => {
             let _data = data;
-            let shouldUpdate = false;
-            if ((_items) && (_items.length < _data.length))
-                shouldUpdate = true;
+          
+          
             _items = _data.map((item: any, i: number): JSX.Element => {
                 return (
                     <div className="ms-Grid-row" key={item.id}>
-                        <span className="mns-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
-                            {item.name}
-                        </span>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
-                            {item.user}
-                        </span>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
+                         <span className="ms-Grid-col ms-u-lg4">
                             <DefaultButton
-                                data-automation-id='test'
                                 description='Create new item'
                                 onClick={() => this.callBackPublications(item.id)}
                                 text='Check Publications'
                             />
                         </span>
+                        <span className="mns-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
+                            {item.user}
+                        </span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4">
+                            {item.name}
+                        </span>
+                       
                     </div>
                 );
             });
-            if (shouldUpdate)
+            
                 this.setState({ _items })
         });
     }
@@ -73,9 +76,9 @@ export class Authors extends React.Component<any, any> {
                
                 <div className="ms-Grid">
                     <div className="ms-Grid-row">
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Name</span>
-                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">User Name</span>
                         <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Actions</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">Name</span>
+                        <span className="ms-Grid-col ms-u-sm12 ms-u-md4 ms-u-lg4 ms-font-xl">E-mail</span>
                     </div>
                     {_items}
                 </div>

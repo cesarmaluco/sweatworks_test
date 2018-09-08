@@ -2,7 +2,7 @@
 let Publication = require("../Publication");
 let EndpointDescription = require("../../server/endpoint-description");
 
-
+//GET PUBLICATIONS
 function searchPublication(req, res, next,proxyMensagem) {
 	let pub = new Publication();
 	var reqMensagem = req.body.filters;
