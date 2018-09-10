@@ -32,7 +32,19 @@ export class SignUp extends React.Component<any, IUser> {
             this._user = props.context.state.user;
     }
 
+    validate(name: any, pwd: any,email: any) {
+        // true means invalid, so our conditions got reversed
+        return (
+           name.length === 0 ||
+           pwd.length === 0 ||
+           email.length === 0
+        )
+      }
+
     private signUp() {
+        if (this.validate( (this.refs.name as any).value,(this.refs["pwd"] as any).value,(this.refs["email"] as any).value ))
+            return;
+
         fetch('http://localhost:1340/api/author/create', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"Author":{' +
                 '"Name": "' + (this.refs.name as any).value + '",' +
@@ -47,6 +59,9 @@ export class SignUp extends React.Component<any, IUser> {
     }
 
     private update() {
+        if (this.validate( (this.refs.name as any).value,(this.refs["pwd"] as any).value,(this.refs["email"] as any).value ))
+            return;
+
         fetch('http://localhost:1340/api/author/update', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"Author":{' +
                 '"Name": "' + (this.refs.name as any).value + '",' +
@@ -70,19 +85,19 @@ export class SignUp extends React.Component<any, IUser> {
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
 
-                            <TextField label='Name' ref='name' value={this._user.name} />
+                            <TextField label='Name' ref='name' value={this._user.name} required={true} errorMessage="Name required" />
                         </div>
                     </div>
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
 
-                            <TextField label='E-mail' ref='email' value={this._user.email} />
+                            <TextField label='E-mail' ref='email' value={this._user.email} required={true} errorMessage="E-mail required"/>
                         </div>
                     </div>
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
 
-                            <TextField label='Password' type="password" ref='pwd'/>
+                            <TextField label='Password' type="password" ref='pwd' required={true} errorMessage="Password required"/>
                         </div>
                     </div>
                     <div className="ms-Grid-row">

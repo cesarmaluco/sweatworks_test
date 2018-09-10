@@ -112,6 +112,9 @@ export  class ItemForm extends React.Component<any, IItem> {
 
     private newItem()
     {
+        if (this.validate(this._title))
+          return;
+
         fetch('http://localhost:1340/api/publication/create',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
                                                                               '"Title": "' + this._title + '",' + 
                                                                               '"Body": "' + this._body + '",' + 
@@ -125,12 +128,19 @@ export  class ItemForm extends React.Component<any, IItem> {
                                                                             });
     }
 
-    private loadItem(){
 
+    validate(title: any) {
+      // true means invalid, so our conditions got reversed
+      return (
+        title.length == 0
+      )
     }
 
     private updateItem()
     {
+        if (this.validate(this._title))
+          return;
+
         fetch('http://localhost:1340/api/publication/update',{ method: 'POST',headers: { 'Content-Type': 'application/json'}, body: '{"data":{' + 
                                                                               '"Title": "' + this._title + '",' + 
                                                                               '"Body": "' + this._body + '",' + 
@@ -152,7 +162,7 @@ export  class ItemForm extends React.Component<any, IItem> {
         <div className="ms-Grid">
             <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
-                      <TextField  ref='title' value={this._title} onChanged={this.handleChangeTitle} />
+                      <TextField  ref='title' value={this._title} onChanged={this.handleChangeTitle} required={true} errorMessage="Title required"  />
                 </div>
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
                 <DatePicker

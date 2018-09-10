@@ -11,8 +11,19 @@ export class Login extends React.Component<any, IUser> {
         super(props);
         this._form = props.context;
     }
-
+    validate(pwd: any,email: any) {
+        // true means invalid, so our conditions got reversed
+        return (
+            email.length === 0 ||
+            pwd.length === 0 
+        )
+    }
+      
     public logIn() {
+
+        if (this.validate( (this.refs["pwd"] as any).value,(this.refs["email"] as any).value ))
+            return;
+
         fetch('http://localhost:1340/api/login', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"data":{' +
 
@@ -42,12 +53,12 @@ export class Login extends React.Component<any, IUser> {
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
 
-                            <TextField label='E-mail' ref="email"/>
+                            <TextField label='E-mail' ref="email" required={true} errorMessage="Email required" />
                         </div>
                     </div>
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12">
-                            <TextField label='Password' type="password" ref="pwd"/>
+                            <TextField label='Password' type="password" ref="pwd" required={true} errorMessage="Password required" />
                         </div>
                     </div>
                     <div className="ms-Grid-row">
