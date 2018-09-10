@@ -36,25 +36,16 @@ gulp.task("lint", () => {
 /**
  * Realiza todas as atividades de construção. *Não* testa.
  */
-gulp.task("build", ["lint"], function () {
+gulp.task("build", function () {
 
 });
 
-/**
- * Tarefa: Inicializa o Istanbul para recolher informação de cobertura de testes
- */
-gulp.task("init-istanbul", function () {
-    return gulp.src(["src/**/*.js", "bin/**/*.js"])
-        // Covering files
-        .pipe(istanbul())
-        // Force `require` to return covered files
-        .pipe(istanbul.hookRequire());
-});
+
 
 /**
  * Executa tests. Must be built.
  */
-gulp.task("test", ["build", "init-istanbul"], function () {
+gulp.task("test", ["build"], function () {
     return gulp.src("./test/**/*.spec.js", { read: false })
         // gulp-mocha needs filepaths so you can't have any plugins before it
         .pipe(mocha({
@@ -66,20 +57,7 @@ gulp.task("test", ["build", "init-istanbul"], function () {
             }
             //require: ["mocha-clean"]//./mocha-harmonize.js'] // turn on the harmonization settings for mocha
         }))
-        // Creating the reports after tests ran
-        .pipe(istanbul.writeReports({
-            dir: ".reports",
-            reporters: ["cobertura", "html", "text", "lcovonly"],
-            reportOpts: {
-                cobertura: { dir:"reports/coverage", file: "cobertura-coverage.xml" },
-                lcovonly: { dir:"reports/coverage" },
-                html: { dir:"reports/coverage/html" }                
-            }
-        }))
-        // Enforce a coverage of at least 55% global and 55% for each file
-        .pipe(istanbul.enforceThresholds({ 
-            thresholds: { global: 55, each: 55 } 
-        }));
+      
 });
 
 /**

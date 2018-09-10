@@ -23,12 +23,14 @@
     "mocha-jenkins-reporter": "^0.2.2",
     "mocha-multi": "^0.9.0",
     "sinon": "^1.17.3",
+    "supertest": "^3.3.0",
     "typings": "^0.8.1"
   },
   "dependencies": {
     "bunyan": "^1.8.1",
     "country-list": "0.0.3",
     "crypto": "0.0.3",
+    "express": "^4.16.3",
     "http-status-codes": "^1.0.6",
     "ioredis": "^2.2.0",
     "jsonwebtoken": "^7.0.1",
