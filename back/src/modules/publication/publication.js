@@ -2,8 +2,7 @@
 let config = require("../../util/config");
 let db = require('../reference-data/index');
 /** 
- Classe de tratamento de mensagens de retorno do CICS consultando qual a 
- referência da mesma para retorno ao canal.
+ Publication class 
 */
 class Publication {
 	constructor() {

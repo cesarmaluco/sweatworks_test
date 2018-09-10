@@ -37,16 +37,16 @@ class EndpointDescription {
 	}
 
 	/**
-	 * @returns {HttpVerbs} Qual o verbo que deve ser acionado para executar esse endpoint.
+	 * @returns {HttpVerbs} HTTP Verb
 	 */
 	get operation() { return this._operation; }
 	/**
-	 * @returns {string} O caminho para este endpoint.
+	 * @returns {string} Path
 	 */
 	get path() { return this._path; }
 	
 	/**
-	 * @returns Método executado quando o endpoint recebe uma requisição.
+	 * @returns handler for rest
 	 */
 	get handler() { return this._handler; }
 }

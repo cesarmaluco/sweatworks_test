@@ -2,7 +2,7 @@
 let Author = require("../Author");
 let EndpointDescription = require("../../server/endpoint-description");
 
-/** Consultar  mensagens no banco de dados  */
+/** Search for author  */
 function searchAuthor(req, res, next,proxyItem) {
 	let author = new Author();
 	var filters = req.body.filters;

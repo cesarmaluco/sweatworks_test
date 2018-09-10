@@ -2,7 +2,7 @@
 let Item = require("../Author");
 let EndpointDescription = require("../../server/endpoint-description");
 
-/** Exclusao de uma Item no banco de dados  */
+/**Deletes the author */
 function deleteAuthor(req, res, next,proxyItem) {
 	let author = new Author();
 	var reqItem = req.body.Item;

@@ -5,7 +5,7 @@ let EndpointDescription = require("../../server/endpoint-description");
 var getHash = require('../../../util/getHash');
 var jwt = require('jsonwebtoken');
 
-/** Consultar  mensagens no banco de dados  */
+/** Login author  */
 function login(req, res, next,proxyMensagem) {
 	
 	var data = req.body.data;

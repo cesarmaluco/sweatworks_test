@@ -8,6 +8,9 @@ let db = null;
 
 // IMPLEMENTATION //////////////////////////////////////////////////////////////
 
+
+//DATABASE CLASS
+
 class Command {
 	constructor(command, params) {
 		this._command = command;

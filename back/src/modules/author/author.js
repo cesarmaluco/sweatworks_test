@@ -4,8 +4,10 @@ var getHash = require('../../util/getHash');
 var jwt = require('jsonwebtoken');
 let db = require('../reference-data/index');
 
+//BUSINESS LAYER FOR THE AUTHOR
+
 class Author {
-	/**Construtor e inicializador de banco de dados */
+	
 	constructor() {
 	
 	}

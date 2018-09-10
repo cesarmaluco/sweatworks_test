@@ -3,7 +3,7 @@ let Author = require("../Author");
 let EndpointDescription = require("../../server/endpoint-description");
 
 
-/** Atualização de Item   */
+/** Updates the author   */
 function updateAuthor(req, res, next,proxyItem) {
 	let author = new Author();
 	var reqItem = req.body.Author;
