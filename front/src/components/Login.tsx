@@ -36,7 +36,7 @@ export class Login extends React.Component<any, IUser> {
                 //erro
             }
             else{
-                let _user: IUser = { name: _data.name, email: _data.user, id: _data.id};
+                let _user: IUser = { name: _data.name, email: _data.user, id: _data.id, birthDate: _data.BirthDate};
                 this._form.setState({ status: "Ready", user: _user });
             }
             this.forceUpdate();

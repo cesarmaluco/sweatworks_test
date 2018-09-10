@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { SignUp, IUser } from "./SignUp";
 
@@ -13,6 +14,7 @@ export class Authors extends React.Component<any, any> {
     private _selection: Selection;
     private _showForm: boolean;
     private _callbackPub : any;
+    
 
     constructor(props: any) {
         super(props);

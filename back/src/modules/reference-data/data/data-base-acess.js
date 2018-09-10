@@ -95,7 +95,7 @@ function initializeDb() {
 	db.serialize(function () {
 		db.get("select name from sqlite_master where type='table' and name='Authors'", function (err, table) {
 			if (!table)
-				db.run('CREATE TABLE Authors(id INTEGER PRIMARY KEY AUTOINCREMENT, name text,pwd text, user text )');
+				db.run('CREATE TABLE Authors(id INTEGER PRIMARY KEY AUTOINCREMENT, name text,pwd text, user text,BirthDate DateTime )');
 		});
 
 		db.get("select name from sqlite_master where type='table' and name='Publications'", function (err, table) {

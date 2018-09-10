@@ -20,7 +20,8 @@ class Author {
 			Params.push(author.Name);
 			Params.push(author.Pwd);
 			Params.push(author.User);
-			let prepSQL = new db.dataBaseAcess.Command('INSERT INTO AUthors (Name,Pwd,User) values(?,?,?)',Params);
+			Params.push(author.BirthDate);
+			let prepSQL = new db.dataBaseAcess.Command('INSERT INTO AUthors (Name,Pwd,User,BirthDate) values(?,?,?,?)',Params);
 			db.dataBaseAcess.runCommand(prepSQL).then((id) => {
 				author.Id = id;
 				resolve(author);
@@ -38,8 +39,9 @@ class Author {
 			Params.push(author.Name);
 			Params.push(author.Pwd);
 			Params.push(author.User);
+			Params.push(author.BirthDate);
 			Params.push(author.Id);
-			let prepSQL = new db.dataBaseAcess.Command('Update AUthors set Name = ?, Pwd = ? , User = ? where Id = ? ',Params);
+			let prepSQL = new db.dataBaseAcess.Command('Update AUthors set Name = ?, Pwd = ? , User = ? , BirthDate = ?  where Id = ? ',Params);
 			db.dataBaseAcess.runCommand(prepSQL).then((id) => {
 				resolve(author);
 			});
